@@ -2,7 +2,7 @@ package main
 
 import (
 	"errors"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	log "github.com/Sirupsen/logrus"
@@ -24,7 +24,7 @@ type Cluster struct {
 
 func readConfig(name string) (*Cluster, error) {
 	path := filepath.Join(home, kubedConf)
-	confBytes, err := ioutil.ReadFile(path)
+	confBytes, err := os.ReadFile(path)
 	if err != nil {
 		log.Warn("Failed in reading kubed config file ", err)
 		return nil, err
@@ -74,7 +74,7 @@ func saveConfig(cluster *Cluster) error {
 
 	var clusters []Cluster
 
-	oldConfBytes, err := ioutil.ReadFile(path)
+	oldConfBytes, err := os.ReadFile(path)
 	if err == nil {
 		err = yaml.Unmarshal(oldConfBytes, &clusters)
 		if err != nil {
@@ -105,7 +105,7 @@ func saveConfig(cluster *Cluster) error {
 		return err
 	}
 
-	err = ioutil.WriteFile(path, newConfBytes, 0644)
+	err = os.WriteFile(path, newConfBytes, 0644)
 	if err != nil {
 		log.Warn("Failed in saving kubedconfig ", err)
 		return err
