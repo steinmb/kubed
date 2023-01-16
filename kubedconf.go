@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 
 	log "github.com/Sirupsen/logrus"
-	yaml "gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v2"
 )
 
 // Cluster structure to setup kubeconfig
@@ -42,7 +42,7 @@ func readConfig(name string) (*Cluster, error) {
 		}
 	}
 
-	return nil, errors.New("Provided cluster not found, run with full config parameters to configure it")
+	return nil, errors.New("provided cluster not found, run with full config parameters to configure it")
 }
 
 func setConfig(
